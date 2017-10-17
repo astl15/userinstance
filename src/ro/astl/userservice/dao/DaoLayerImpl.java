@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.DataSource;
+
+import org.apache.commons.dbcp.BasicDataSource;
+
 import ro.astl.userservice.model.User;
 
 public class DaoLayerImpl implements DaoLayer {
@@ -13,9 +16,8 @@ public class DaoLayerImpl implements DaoLayer {
 	private static final String DB_URL = "jdbc:mysql://localhost:3306";
 	private static final String DB_USER = "root";
 	private static final String DB_PASSWORD = "wltmngr";
-	
 	private static DaoLayer instance = DaoLayerImpl.getInstance();
-	private DataSource dataSource;
+	private final DataSource dataSource = DaoLayerImpl.getDataSource();
 	
 
 	private DaoLayerImpl(){	
@@ -30,7 +32,7 @@ public class DaoLayerImpl implements DaoLayer {
 	@Override
 	public User getUserbyUsername(String Username) {
 		User user = new User();
-		try(Connection conn = DaoLayerImpl.getConnection();
+		try(Connection conn = dataSource.getConnection();
 			PreparedStatement stmnt = DaoLayerImpl.prepareStatement("getUserbyUsername", conn, Username);
 			ResultSet rs = stmnt.executeQuery()){
 			while(rs.next()) {
@@ -55,8 +57,13 @@ public class DaoLayerImpl implements DaoLayer {
 		return instance;
 	}
 	
-	private static final DataSource getMySqlDataSource() {
-		return null;
+	private static final DataSource getDataSource() {
+		BasicDataSource dataSource = new BasicDataSource();
+		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/wltmngr");
+		dataSource.setUsername("root");
+		dataSource.setPassword("wltmngr");
+		return dataSource;
 	}
 	
 	/*DO NOT USE THIS IN PROD - METHOD JUST FOR OCP PREP*/
