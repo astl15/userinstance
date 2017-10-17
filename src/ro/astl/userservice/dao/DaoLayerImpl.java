@@ -62,7 +62,7 @@ public class DaoLayerImpl implements DaoLayer {
 	/*DO NOT USE THIS IN PROD - METHOD JUST FOR OCP PREP*/
 	private static final Connection getConnection() throws SQLException{
 		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
