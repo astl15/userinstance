@@ -27,4 +27,16 @@ public class UserInstanceImpl implements UserInstance {
 		return output;
 	}
 
+	@Override
+	public UserInstanceOut createUser(UserInstanceIn request) {
+		UserInstanceOut output = new UserInstanceOut();
+		boolean isExecuted = dao.createUser(request.getUsername(), request.getPassword());
+		if(isExecuted){
+			output.setResponseCode("SUCCES");
+		}else {
+			output.setResponseCode("FAILURE");
+		}
+		return output;
+	}
+
 }

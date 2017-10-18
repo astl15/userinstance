@@ -24,8 +24,19 @@ public class DaoLayerImpl implements DaoLayer {
 	}
 	
 	@Override
-	public void createUser(String username, String password) {
-		// TODO Auto-generated method stub
+	public boolean createUser(String username, String password) {
+		boolean isExecuted = false;
+		try(Connection conn = dataSource.getConnection();
+			PreparedStatement stmnt = DaoLayerImpl.prepareStatement("createUser", conn, username, password)){
+			int affectedRows = stmnt.executeUpdate();
+			if(affectedRows>0) {
+				isExecuted = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return isExecuted;
 		
 	}
 
@@ -80,14 +91,21 @@ public class DaoLayerImpl implements DaoLayer {
 	
 	private static PreparedStatement prepareStatement(String operation, Connection conn, String... paramsSQL) throws SQLException {
 		PreparedStatement stmnt = null;
+		String sql = "";
 		if(paramsSQL.length<1) {
 			return stmnt;
 		}else {
 			switch(operation) {
 				case "getUserbyUsername":
-					String sql = "SELECT * FROM wltmngr.users WHERE username = ?";
+					sql = "SELECT * FROM wltmngr.users WHERE username = ?";
 					stmnt = conn.prepareStatement(sql);
 					stmnt.setString(1, paramsSQL[0]);
+					break;
+				case "createUser":
+					sql = "INSERT INTO wltmngr.users(username,password)VALUES(?,?)";
+					stmnt = conn.prepareStatement(sql);
+					stmnt.setString(1, paramsSQL[0]);
+					stmnt.setString(2, paramsSQL[1]);
 					break;
 			}
 			return stmnt;

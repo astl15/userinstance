@@ -9,4 +9,5 @@ import ro.astl.userservice.response.UserInstanceOut;
 @WebService(name="UserInstanceService")
 public interface UserInstance {
 	public UserInstanceOut getUserbyUsername(@WebParam(name="request")UserInstanceIn request);
+	public UserInstanceOut createUser(@WebParam(name="request")UserInstanceIn request);
 }
