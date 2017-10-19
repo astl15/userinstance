@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
@@ -41,20 +44,22 @@ public class DaoLayerImpl implements DaoLayer {
 	}
 
 	@Override
-	public User getUserbyUsername(String Username) {
-		User user = new User();
+	public List<User> getUserbyUsername(String Username) {
+		List<User> userList = new ArrayList<User>();
 		try(Connection conn = dataSource.getConnection();
 			PreparedStatement stmnt = DaoLayerImpl.prepareStatement("getUserbyUsername", conn, Username);
 			ResultSet rs = stmnt.executeQuery()){
 			while(rs.next()) {
+				User user = new User();
 				user.setId(rs.getInt("id"));
 				user.setUsername(rs.getString("username"));
 				user.setPassword(rs.getString("password"));
+				userList.add(user);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return user;
+		return userList;
 	}
 	
 	public static final DaoLayer getInstance(){

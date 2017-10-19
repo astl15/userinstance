@@ -1,5 +1,7 @@
 package ro.astl.userservice.ws;
 
+import java.util.List;
+
 import javax.jws.WebService;
 
 import ro.astl.userservice.dao.DaoLayer;
@@ -15,8 +17,12 @@ public class UserInstanceImpl implements UserInstance {
 	@Override
 	public UserInstanceOut getUserbyUsername(UserInstanceIn request) {
 		UserInstanceOut output = new UserInstanceOut();
-		User userResponse = dao.getUserbyUsername(request.getUsername());
-		if(userResponse.getUsername()!=null) {
+		User userResponse = null;
+		List<User> userListResponse = dao.getUserbyUsername(request.getUsername());
+		if(!userListResponse.isEmpty()) {
+			userResponse = userListResponse.get(0);
+		}
+		if(userResponse!=null && userResponse.getUsername()!=null) {
 			output.setResponseCode("SUCCESS");
 			output.setId(userResponse.getId());
 			output.setUsername(userResponse.getUsername());
