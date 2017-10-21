@@ -1,6 +1,6 @@
 package ro.astl.userservice.request;
 
-public class ServiceContext {
+public class ApplicationContext {
 	private String ApplicationName;
 
 	public String getApplicationName() {

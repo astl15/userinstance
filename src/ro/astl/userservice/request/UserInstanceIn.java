@@ -1,7 +1,7 @@
 package ro.astl.userservice.request;
 
 public class UserInstanceIn {
-	private ServiceContext conxtext;
+	private ApplicationContext conxtext;
 	private int id;
 	private String username;
 	private String password;
@@ -9,18 +9,18 @@ public class UserInstanceIn {
 	public UserInstanceIn(){
 	}
 	
-	public UserInstanceIn(ServiceContext context, int id, String username, String password){
+	public UserInstanceIn(ApplicationContext context, int id, String username, String password){
 		this.conxtext = context;
 		this.id = id;
 		this.username = username;
 		this.password = password;
 	}
 
-	public ServiceContext getConxtext() {
+	public ApplicationContext getConxtext() {
 		return conxtext;
 	}
 
-	public void setConxtext(ServiceContext conxtext) {
+	public void setConxtext(ApplicationContext conxtext) {
 		this.conxtext = conxtext;
 	}
 
