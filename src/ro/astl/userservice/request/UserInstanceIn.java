@@ -5,15 +5,17 @@ public class UserInstanceIn {
 	private int id;
 	private String username;
 	private String password;
+	private int role;
 	
 	public UserInstanceIn(){
 	}
 	
-	public UserInstanceIn(ApplicationContext context, int id, String username, String password){
+	public UserInstanceIn(ApplicationContext context, int id, String username, String password, int role){
 		this.conxtext = context;
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		this.role = role;
 	}
 
 	public ApplicationContext getConxtext() {
@@ -46,5 +48,13 @@ public class UserInstanceIn {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public int getRole() {
+		return role;
+	}
+
+	public void setRole(int role) {
+		this.role = role;
 	}
 }

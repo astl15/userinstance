@@ -5,15 +5,17 @@ public class UserInstanceOut {
 	private int id;
 	private String username;
 	private String password;
+	private String role;
 	
 	public UserInstanceOut(){
 	}
 	
-	public UserInstanceOut(String responseCode, int id, String username, String password){
+	public UserInstanceOut(String responseCode, int id, String username, String password, String role){
 		this.responseCode = responseCode;
 		this.id = id;
 		this.username = username;
 		this.password = password;
+		this.role = role;
 	}
 
 	public String getResponseCode() {
@@ -46,5 +48,13 @@ public class UserInstanceOut {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 }
