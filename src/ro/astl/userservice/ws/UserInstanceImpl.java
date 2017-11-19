@@ -38,7 +38,7 @@ public class UserInstanceImpl implements UserInstance {
 		UserInstanceOut output = new UserInstanceOut();
 		boolean isExecuted = dao.registerUser(request.getUsername(), request.getPassword(), request.getRole());
 		if(isExecuted){
-			output.setResponseCode("SUCCES");
+			output.setResponseCode("SUCCESS");
 		}else {
 			output.setResponseCode("FAILURE");
 		}
@@ -55,7 +55,7 @@ public class UserInstanceImpl implements UserInstance {
 			output.setUsername(userResponse.getUsername());
 			output.setPassword(userResponse.getPassword());
 			output.setRole(userResponse.getRole());
-			output.setResponseCode("SUCCES");
+			output.setResponseCode("SUCCESS");
 		}else {
 			output.setResponseCode("INVALID_CREDENTIALS");
 		}
